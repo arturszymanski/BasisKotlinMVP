@@ -1,0 +1,139 @@
+project.ext {
+    minSdkVesrion = 21
+    targetSdkVersion = 27
+    compileSdkVersion = 27
+    versionCode = 1
+    versionName = '0.0.1'
+
+    supportLib = '27.1.1'
+    constraintLayout = '1.1.3'
+
+    kotlin = '1.3.20'
+
+    rxJava = '2.2.6'
+    rxKotlin = '2.3.0'
+    rxAndroid = '2.1.0'
+
+    architectureLifecycle = '1.1.1'
+
+    moshi = '1.8.0'
+    moshiConverter = '2.5.0'
+    retrofit = '2.5.0'
+    retrofitRxJavaAdapter = '2.5.0'
+    okHttp = '3.12.1'
+    okHttpLogginInterceptor = '3.12.1'
+
+    appDependencies = [
+            testImplementation: [
+
+            ],
+            androidTestImplementation: [
+
+            ],
+            implementation: [
+                    project(':presenter'),
+                    fileTree(dir: 'libs', include: ['*.jar']),
+                    'com.android.support:appcompat-v7:' + supportLib,
+                    'com.android.support:recyclerview-v7:' + supportLib,
+                    'com.android.support:support-v4:' + supportLib,
+                    'org.jetbrains.kotlin:kotlin-stdlib-jdk7:' + kotlin,
+                    'org.jetbrains.kotlin:kotlin-stdlib:' + kotlin,
+                    'com.android.support.constraint:constraint-layout:' + constraintLayout,
+                    'android.arch.lifecycle:extensions:' + architectureLifecycle,
+            ],
+            api: [
+            ],
+            annotationProcessor: [
+                    'android.arch.lifecycle:compiler:' + architectureLifecycle,
+
+            ],
+            compileOnly: [
+
+            ]
+    ]
+
+    presenterDependencies = [
+            testImplementation: [
+
+            ],
+            androidTestImplementation: [
+
+            ],
+            implementation: [
+                    fileTree(dir: 'libs', include: ['*.jar']),
+                    'com.android.support:support-v4:' + supportLib,
+                    'org.jetbrains.kotlin:kotlin-stdlib-jdk7:' + kotlin,
+                    'org.jetbrains.kotlin:kotlin-stdlib:' + kotlin,
+                    'io.reactivex.rxjava2:rxkotlin:' + rxKotlin,
+                    'io.reactivex.rxjava2:rxandroid:' + rxAndroid,
+                    'io.reactivex.rxjava2:rxjava:' + rxJava,
+            ],
+            api: [
+                    project(':domain'),
+            ],
+            annotationProcessor: [
+
+            ],
+            compileOnly: [
+
+            ]
+    ]
+
+    domainDependencies = [
+            testImplementation: [
+
+            ],
+            androidTestImplementation: [
+
+            ],
+            implementation: [
+                    fileTree(dir: 'libs', include: ['*.jar']),
+                    'org.jetbrains.kotlin:kotlin-stdlib-jdk7:' + kotlin,
+                    'org.jetbrains.kotlin:kotlin-stdlib:' + kotlin,
+                    'io.reactivex.rxjava2:rxkotlin:' + rxKotlin,
+                    'io.reactivex.rxjava2:rxandroid:' + rxAndroid,
+                    'io.reactivex.rxjava2:rxjava:' + rxJava,
+            ],
+            api: [
+                    project(':data'),
+            ],
+            annotationProcessor: [
+
+            ],
+            compileOnly: [
+
+            ]
+    ]
+
+    dataDependencies = [
+            testImplementation: [
+
+            ],
+            androidTestImplementation: [
+
+            ],
+            implementation: [
+                    fileTree(dir: 'libs', include: ['*.jar']),
+                    'org.jetbrains.kotlin:kotlin-stdlib-jdk7:' + kotlin,
+                    'org.jetbrains.kotlin:kotlin-stdlib:' + kotlin,
+                    'io.reactivex.rxjava2:rxkotlin:' + rxKotlin,
+                    'io.reactivex.rxjava2:rxandroid:' + rxAndroid,
+                    'io.reactivex.rxjava2:rxjava:' + rxJava,
+                    'com.squareup.moshi:moshi:' + moshi,
+                    'com.squareup.retrofit2:converter-moshi:' + moshiConverter,
+                    'com.squareup.retrofit2:retrofit:' + retrofit,
+                    'com.squareup.retrofit2:adapter-rxjava2:' + retrofitRxJavaAdapter,
+                    'com.squareup.okhttp3:okhttp:' + okHttp,
+                    'com.squareup.okhttp3:logging-interceptor:' + okHttpLogginInterceptor,
+            ],
+            api: [
+
+            ],
+            annotationProcessor: [
+
+            ],
+            compileOnly: [
+
+            ]
+    ]
+}
