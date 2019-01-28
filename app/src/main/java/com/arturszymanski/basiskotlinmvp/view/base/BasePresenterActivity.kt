@@ -11,7 +11,7 @@ import com.arturszymanski.presenter.base.BasePresenter
  * Base Activity that adds support for presenter and allow to keep state of this presenter. Also handles basis
  * presenter methods and needs.
  */
-abstract class BaseActivity<P, V> : AppCompatActivity() where V : BaseView, P : BasePresenter<V> {
+abstract class BasePresenterActivity<P, V> : AppCompatActivity() where V : BaseView, P : BasePresenter<V> {
 
     /**
      * Instance of presenter.
