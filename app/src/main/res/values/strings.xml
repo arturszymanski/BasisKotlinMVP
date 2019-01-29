@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BasisKotlinMVP</string>
+
+    <string name="lorem_ipsum">Lorem Ipsum</string>
+
+    <!-- region User List -->
+    <string name="user_list_name_label">Name:</string>
+    <string name="user_list_date_of_birth">Date of birth:</string>
+    <string name="user_list_email_address">Email address:</string>
+    <!-- endregion -->
 </resources>

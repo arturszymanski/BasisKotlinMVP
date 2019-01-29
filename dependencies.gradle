@@ -23,6 +23,8 @@ project.ext {
     okHttp = '3.12.1'
     okHttpLogginInterceptor = '3.12.1'
 
+    picasso = '2.71828'
+
     appDependencies = [
             testImplementation: [
 
@@ -40,6 +42,7 @@ project.ext {
                     'org.jetbrains.kotlin:kotlin-stdlib:' + kotlin,
                     'com.android.support.constraint:constraint-layout:' + constraintLayout,
                     'android.arch.lifecycle:extensions:' + architectureLifecycle,
+                    'com.squareup.picasso:picasso:' + picasso,
             ],
             api: [
             ],
