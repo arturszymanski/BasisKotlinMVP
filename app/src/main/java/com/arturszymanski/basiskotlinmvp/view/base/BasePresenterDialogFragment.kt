@@ -2,16 +2,15 @@ package com.arturszymanski.basiskotlinmvp.view.base
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import com.arturszymanski.curriculumvitae.presenter.base.PresenterFactory
-import com.arturszymanski.presenter.base.BaseView
 import com.arturszymanski.presenter.base.BasePresenter
+import com.arturszymanski.presenter.base.BaseView
 
 /**
  * Base Dialog Fragment that adds support for presenter and allow to keep state of this presenter. Also handles basis
  * presenter methods and needs.
  */
-abstract class BasePresenterDialogFragment <P, V> : DialogFragment() where V : BaseView, P : BasePresenter<V> {
+abstract class BasePresenterDialogFragment<P, V, O> : BaseDialogFragment<O>() where V : BaseView, P : BasePresenter<V> {
 
     /**
      * Instance of presenter.
@@ -31,6 +30,7 @@ abstract class BasePresenterDialogFragment <P, V> : DialogFragment() where V : B
         onPresenterPrepared(fromStorage = !presenterFactory.isNewCreated)
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onStart() {
         super.onStart()
 

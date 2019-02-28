@@ -1,11 +1,8 @@
 package com.arturszymanski.presenter.base
 
 import android.arch.lifecycle.ViewModel
-
-import java.util.LinkedList
-import java.util.Queue
-
 import io.reactivex.disposables.CompositeDisposable
+import java.util.*
 
 /**
  * Base presenter class that manage flow of any view.

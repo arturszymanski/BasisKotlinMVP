@@ -13,7 +13,6 @@ class UserListPresenter : BasePresenter<UserListView>() {
      */
     var userList : MutableList<User> = mutableListOf()
 
-    /** {@inheritDoc} */
     override fun onFirstBind() {
         //TODO Replace with API DATA
         userList.add(
@@ -127,7 +126,6 @@ class UserListPresenter : BasePresenter<UserListView>() {
         present { view -> view.displayUserList(userList) }
     }
 
-    /** {@inheritDoc} */
     override fun onViewRestoreState() {
         present { view -> view.displayUserList(userList) }
     }
@@ -138,7 +136,8 @@ class UserListPresenter : BasePresenter<UserListView>() {
      * @param position Position of selected user
      */
     fun itemSelected(position: Int) {
-        //TODO Add implementation once view created
+        var selectedUser = userList[position]
+        present { it.displayUserDetails(user = selectedUser) }
     }
     //endregion UI
 }

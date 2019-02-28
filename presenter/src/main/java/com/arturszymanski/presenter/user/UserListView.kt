@@ -12,4 +12,10 @@ interface UserListView : BaseView {
      * @param userList List of users to display.
      */
     fun displayUserList(userList : List<User>)
+
+    /**
+     * Displays user details for give user.
+     * @param user User to display details for
+     */
+    fun displayUserDetails(user : User)
 }

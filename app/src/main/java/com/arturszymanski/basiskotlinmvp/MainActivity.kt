@@ -8,6 +8,7 @@ import com.arturszymanski.curriculumvitae.presenter.base.PresenterFactory
 import com.arturszymanski.presenter.TestView
 import com.arturszymanski.presenter.TestPresenter
 
+//TODO swap to activity without presenter once will be ready
 class MainActivity : BasePresenterActivity<TestPresenter, TestView>(), TestView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,7 @@ class MainActivity : BasePresenterActivity<TestPresenter, TestView>(), TestView 
         }
     }
 
+    //region Presenter
     override fun onPresenterPrepared(fromStorage: Boolean) {
     }
 
@@ -37,4 +39,5 @@ class MainActivity : BasePresenterActivity<TestPresenter, TestView>(), TestView 
             }
         }
     }
+    //endregion Presenter
 }

@@ -15,9 +15,9 @@ class BKMVPApplication : Application() {
         //TODO replace later
         var builder : Picasso.Builder= Picasso.Builder(baseContext)
             .downloader(OkHttp3Downloader(baseContext))
+        builder.listener { _, _, exception -> exception.printStackTrace() }
 
         if (BuildConfig.DEBUG) {
-            builder.listener { _, _, exception -> exception.printStackTrace() }
             builder.loggingEnabled(true)
             builder.indicatorsEnabled(true)
         }

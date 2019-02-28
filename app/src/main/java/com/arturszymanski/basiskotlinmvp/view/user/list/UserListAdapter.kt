@@ -8,7 +8,7 @@ import com.arturszymanski.domain.entity.User
 import com.arturszymanski.presenter.user.UserListPresenter
 
 /**
- * Adapter for RecyclerView that helps to display users in user list
+ * Adapter for RecyclerView that helps to display users in user list where each item is represented by [UserListViewHolder]
  */
 class UserListAdapter : RecyclerView.Adapter<UserListViewHolder>() {
 
@@ -21,27 +21,26 @@ class UserListAdapter : RecyclerView.Adapter<UserListViewHolder>() {
      */
     val userListItemInteractions : UserListItemInteractions = object : UserListItemInteractions {
         override fun itemSelected(position: Int) {
-            presenter?.itemSelected(position)
+            if(::presenter.isInitialized) {
+                presenter.itemSelected(position)
+            }
         }
     }
     /**
-     * Presenter that handles interactions on this list and its items.
+     * Presenter that handles interactions on this list and it's items.
      */
     lateinit var presenter : UserListPresenter
 
 
-    /** {@inheritDoc} */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.item_user_list, parent, false)
         return UserListViewHolder(view)
     }
 
-    /** {@inheritDoc} */
     override fun getItemCount(): Int {
         return userList.size
     }
 
-    /** {@inheritDoc} */
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
         holder.bind(userList[position], userListItemInteractions)
     }

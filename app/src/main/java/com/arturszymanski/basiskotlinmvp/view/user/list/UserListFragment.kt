@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.arturszymanski.basiskotlinmvp.R
 import com.arturszymanski.basiskotlinmvp.view.base.BasePresenterFragment
+import com.arturszymanski.basiskotlinmvp.view.user.details.UserDetailsDialogOwner
+import com.arturszymanski.basiskotlinmvp.view.user.details.UserDetailsDialogFragment
 import com.arturszymanski.curriculumvitae.presenter.base.PresenterFactory
 import com.arturszymanski.domain.entity.User
 import com.arturszymanski.presenter.user.UserListPresenter
@@ -18,7 +20,8 @@ import kotlinx.android.synthetic.main.fragment_user_list.*
 /**
  * Fragment that display User List
  */
-class UserListFragment : BasePresenterFragment<UserListPresenter, UserListView>(), UserListView {
+class UserListFragment : BasePresenterFragment<UserListPresenter, UserListView>(), UserListView,
+    UserDetailsDialogOwner {
 
     companion object {
         /**
@@ -60,25 +63,33 @@ class UserListFragment : BasePresenterFragment<UserListPresenter, UserListView>(
         userList.addItemDecoration(dividerItemDecoration)
     }
 
+    //region UserDetailsDialogOwner
+    override fun closed() {
+
+    }
+    //endregion
+
     //region UserListView
-    /** {@inheritDoc} */
     override fun displayUserList(userList: List<User>) {
         adapter.setData(userList)
+    }
+
+    override fun displayUserDetails(user: User) {
+        var userDetailsDialog : UserDetailsDialogFragment = UserDetailsDialogFragment.newInstance(user)
+        userDetailsDialog.isCancelable = false
+        userDetailsDialog.show(childFragmentManager, "userDetailsDialog")
     }
     //endregion UserListView
 
     //region Presenter
-    /** {@inheritDoc} */
     override fun onPresenterPrepared(fromStorage: Boolean) {
         adapter.presenter = presenter
     }
 
-    /** {@inheritDoc} */
     override fun presenterClass(): Class<UserListPresenter> {
         return UserListPresenter::class.java
     }
 
-    /** {@inheritDoc} */
     override fun prepareFactory(): PresenterFactory {
         return object : PresenterFactory() {
             override fun <T : ViewModel> createPresenter(presenterClass: Class<T>): T {
