@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -12,6 +13,8 @@ android {
 
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        missingDimensionStrategy 'type', 'server', 'mock'
 
     }
 
@@ -27,7 +30,7 @@ dependencies {
     testImplementation presenterDependencies.testImplementation
     androidTestImplementation presenterDependencies.androidTestImplementation
     implementation presenterDependencies.implementation
-    annotationProcessor presenterDependencies.annotationProcessor
+    kapt presenterDependencies.kapt
     compileOnly presenterDependencies.compileOnly
     api presenterDependencies.api
 }

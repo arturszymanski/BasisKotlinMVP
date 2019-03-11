@@ -8,7 +8,7 @@ project.ext {
     supportLib = '27.1.1'
     constraintLayout = '1.1.3'
 
-    kotlin = '1.3.20'
+    kotlin = '1.3.21'
 
     rxJava = '2.2.6'
     rxKotlin = '2.3.0'
@@ -47,7 +47,7 @@ project.ext {
             ],
             api: [
             ],
-            annotationProcessor: [
+            kapt: [
                     'android.arch.lifecycle:compiler:' + architectureLifecycle,
 
             ],
@@ -75,7 +75,7 @@ project.ext {
             api: [
                     project(':domain'),
             ],
-            annotationProcessor: [
+            kapt: [
 
             ],
             compileOnly: [
@@ -101,7 +101,7 @@ project.ext {
             api: [
                     project(':data'),
             ],
-            annotationProcessor: [
+            kapt: [
 
             ],
             compileOnly: [
@@ -133,7 +133,7 @@ project.ext {
             api: [
 
             ],
-            annotationProcessor: [
+            kapt: [
 
             ],
             compileOnly: [

@@ -22,11 +22,11 @@ class UserListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
     fun bind(user: User, userListItemInteractions: UserListItemInteractions) {
 
         itemView.name.text = user.name.title + " " + user.name.first + " " + user.name.last
-        itemView.dob.text = user.dob.date
+        itemView.dob.text = user.dob.toString()
         itemView.email.text = user.email
 
         Picasso.get()
-            .load(user.picture.large)
+            .load(user.picture)
             .into(itemView.image)
 
         itemView.setOnClickListener{ _ -> userListItemInteractions.itemSelected(adapterPosition) }

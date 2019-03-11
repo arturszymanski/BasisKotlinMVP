@@ -59,7 +59,7 @@ class UserDetailsDialogFragment : BasePresenterDialogFragment<UserDetailsPresent
         phone.text = "phone: ${user.phone}"
 
         Picasso.get()
-            .load(user.picture.large)
+            .load(user.picture)
             .into(image)
     }
 

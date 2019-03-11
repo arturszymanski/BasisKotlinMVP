@@ -1,129 +1,22 @@
 package com.arturszymanski.presenter.user
 
-import com.arturszymanski.domain.entity.*
+import com.arturszymanski.domain.entity.User
+import com.arturszymanski.domain.usecase.user.GetUsersUseCase
 import com.arturszymanski.presenter.base.BasePresenter
 
 /**
  * Presenter that provide functionalities and data for User List view
  */
-class UserListPresenter : BasePresenter<UserListView>() {
+class UserListPresenter(
+        val getUsersUseCase: GetUsersUseCase) : BasePresenter<UserListView>() {
 
     /**
      * List of users which will be displayed
      */
-    var userList : MutableList<User> = mutableListOf()
+    var userList : List<User> = ArrayList()
 
     override fun onFirstBind() {
-        //TODO Replace with API DATA
-        userList.add(
-                User(
-                        cell = "606 505 404",
-                        name = Name(
-                                first = "Lorem",
-                                last = "Ipsum",
-                                title = "mr."),
-                        id = Id(
-                                name = "",
-                                value = ""),
-                        dob = Dob(
-                                date = "11.11.1111",
-                                age = 999),
-                        email = "sample@example.com",
-                        gender = "Male",
-                        nat = "GB",
-                        phone = "123456789",
-                        location = Location(
-                                city = "London",
-                                coordinates = Coordinates(
-                                        latitude = "51.495270",
-                                        longitude = "-0.135928"),
-                                postcode = "42-44 B444",
-                                state = "Lorem",
-                                street = "Ipsum",
-                                timezone = Timezone(
-                                        description = "Lorem",
-                                        offset = "Ipsum")),
-                        picture = Picture(
-                                large = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png",
-                                medium = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png",
-                                thumbnail = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png"),
-                        registered = Registered(
-                                age = 2,
-                                date = "22.22.2222")))
-
-        userList.add(
-                User(
-                        cell = "606 505 404",
-                        name = Name(
-                                first = "Lorem",
-                                last = "Ipsum",
-                                title = "mr."),
-                        id = Id(
-                                name = "",
-                                value = ""),
-                        dob = Dob(
-                                date = "11.11.1111",
-                                age = 999),
-                        email = "sample@example.com",
-                        gender = "Male",
-                        nat = "GB",
-                        phone = "123456789",
-                        location = Location(
-                                city = "London",
-                                coordinates = Coordinates(
-                                        latitude = "51.495270",
-                                        longitude = "-0.135928"),
-                                postcode = "42-44 B444",
-                                state = "Lorem",
-                                street = "Ipsum",
-                                timezone = Timezone(
-                                        description = "Lorem",
-                                        offset = "Ipsum")),
-                        picture = Picture(
-                                large = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png",
-                                medium = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png",
-                                thumbnail = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png"),
-                        registered = Registered(
-                                age = 2,
-                                date = "22.22.2222")))
-
-        userList.add(
-                User(
-                        cell = "606 505 404",
-                        name = Name(
-                                first = "Lorem",
-                                last = "Ipsum",
-                                title = "mr."),
-                        id = Id(
-                                name = "",
-                                value = ""),
-                        dob = Dob(
-                                date = "11.11.1111",
-                                age = 999),
-                        email = "sample@example.com",
-                        gender = "Male",
-                        nat = "GB",
-                        phone = "123456789",
-                        location = Location(
-                                city = "London",
-                                coordinates = Coordinates(
-                                        latitude = "51.495270",
-                                        longitude = "-0.135928"),
-                                postcode = "42-44 B444",
-                                state = "Lorem",
-                                street = "Ipsum",
-                                timezone = Timezone(
-                                        description = "Lorem",
-                                        offset = "Ipsum")),
-                        picture = Picture(
-                                large = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png",
-                                medium = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png",
-                                thumbnail = "https://upload.wikimedia.org/wikipedia/commons/3/38/Wikipedia_User-ICON_byNightsight.png"),
-                        registered = Registered(
-                                age = 2,
-                                date = "22.22.2222")))
-
-        present { view -> view.displayUserList(userList) }
+        fetchUsers()
     }
 
     override fun onViewRestoreState() {
@@ -140,4 +33,24 @@ class UserListPresenter : BasePresenter<UserListView>() {
         present { it.displayUserDetails(user = selectedUser) }
     }
     //endregion UI
+
+    //region fetch users
+    fun fetchUsers() {
+        compositeDisposable.add(
+            getUsersUseCase.execute(20)
+                .subscribe(
+                    this::fetchUsersSuccess,
+                    this::fetchUsersFiled))
+    }
+
+    fun fetchUsersSuccess(userList: List<User>) {
+        this.userList = userList
+        present { view -> view.displayUserList(userList) }
+    }
+
+    fun fetchUsersFiled(throwable: Throwable) {
+        //TODO change once logging lib will be added
+        throwable.printStackTrace()
+    }
+    //endregion
 }

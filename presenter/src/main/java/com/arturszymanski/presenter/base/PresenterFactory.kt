@@ -20,7 +20,7 @@ abstract class PresenterFactory : ViewModelProvider.Factory {
             isNewCreated = true
             return presenter
         } catch (throwable: Throwable) {
-            throw IllegalArgumentException("Filed to create presenter: ${presenterClass.name}")
+            throw IllegalArgumentException("Filed to create presenter: ${presenterClass.name}, Exception message: ${throwable.message}")
         }
     }
 

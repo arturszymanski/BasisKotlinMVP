@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -14,12 +15,17 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        missingDimensionStrategy 'type', 'server', 'mock'
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "ISO_8601", "\"yyyy-mm-ddThh:mm:ssZ\""
+        }
+        debug {
+            buildConfigField "String", "ISO_8601", "\"yyyy-mm-ddThh:mm:ssZ\""
         }
     }
 
@@ -32,7 +38,7 @@ dependencies {
     testImplementation domainDependencies.testImplementation
     androidTestImplementation domainDependencies.androidTestImplementation
     implementation domainDependencies.implementation
-    annotationProcessor domainDependencies.annotationProcessor
+    kapt domainDependencies.kapt
     compileOnly domainDependencies.compileOnly
     api domainDependencies.api
 }

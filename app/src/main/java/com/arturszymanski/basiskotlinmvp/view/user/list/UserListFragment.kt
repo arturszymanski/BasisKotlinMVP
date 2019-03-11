@@ -7,15 +7,21 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arturszymanski.basiskotlinmvp.BuildConfig
 import com.arturszymanski.basiskotlinmvp.R
 import com.arturszymanski.basiskotlinmvp.view.base.BasePresenterFragment
 import com.arturszymanski.basiskotlinmvp.view.user.details.UserDetailsDialogOwner
 import com.arturszymanski.basiskotlinmvp.view.user.details.UserDetailsDialogFragment
 import com.arturszymanski.curriculumvitae.presenter.base.PresenterFactory
+import com.arturszymanski.data.network.NetworkDataImpl
+import com.arturszymanski.domain.datasource.UserDataSourceImpl
 import com.arturszymanski.domain.entity.User
+import com.arturszymanski.domain.mapper.UserMapper
+import com.arturszymanski.domain.usecase.user.GetUsersUseCase
 import com.arturszymanski.presenter.user.UserListPresenter
 import com.arturszymanski.presenter.user.UserListView
 import kotlinx.android.synthetic.main.fragment_user_list.*
+import java.text.SimpleDateFormat
 
 /**
  * Fragment that display User List
@@ -93,7 +99,12 @@ class UserListFragment : BasePresenterFragment<UserListPresenter, UserListView>(
     override fun prepareFactory(): PresenterFactory {
         return object : PresenterFactory() {
             override fun <T : ViewModel> createPresenter(presenterClass: Class<T>): T {
-                return UserListPresenter() as T
+                return UserListPresenter(
+                    getUsersUseCase = GetUsersUseCase(
+                        userDataSource = UserDataSourceImpl(
+                            userMapper = UserMapper(
+                                SimpleDateFormat(BuildConfig.ISO_8601)),
+                            networkData = NetworkDataImpl.getInstance().networkData))) as T
             }
         }
     }
